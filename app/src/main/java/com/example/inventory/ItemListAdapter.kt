@@ -39,8 +39,13 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
-
+            binding.apply {
+                itemName.text = item.itemName
+                itemPrice.text = item.getFormattedPrice()
+                itemQuantity.text = item.quantityInStock.toString()
+            }
         }
+
     }
 
     companion object {
