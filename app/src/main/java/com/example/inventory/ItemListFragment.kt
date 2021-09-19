@@ -25,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventory.databinding.ItemListFragmentBinding
 import androidx.fragment.app.activityViewModels
+import com.example.inventory.data.Item
 
 /**
  * Main fragment displaying details for all items in the database.
@@ -54,7 +55,16 @@ class ItemListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val id = navigationArgs.itemId
+
+        viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedItem ->
+            item = selectedItem
+            bind(item)
+        }
+
         val adapter = ItemListAdapter {
+            val action = ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
 
