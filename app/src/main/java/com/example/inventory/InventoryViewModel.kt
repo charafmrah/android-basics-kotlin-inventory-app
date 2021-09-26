@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
  */
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
-    // Cache all items form the database using LiveData.
+    // Cache all items from the database using LiveData.
     val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
 
     /**
